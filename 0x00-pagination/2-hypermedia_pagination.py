@@ -63,7 +63,7 @@ class Server:
             dictionnay['next_page'] = None
         return dictionnay
 
-    def get_hyper_index(index = None, page_size: int = 10) -> Dict:
+    def get_hyper_index(index=None, page_size: int = 10) -> Dict:
         """get_hyper_index method with two integer arguments:
         index with a None default value and page_size 
         with default value of 10."""
