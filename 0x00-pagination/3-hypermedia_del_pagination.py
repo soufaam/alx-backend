@@ -51,7 +51,7 @@ class Server:
         for item in range(page_size):
             while not csvar.get(next_index):
                 next_index += 1
-            data.append(csv.get(next_index))
+            data.append(csvar.get(next_index))
             next_index += 1
         return {
             "index": index,
