@@ -47,6 +47,7 @@ const jobs = [
     }
   ];
 
+const blacklistedNumbers = ['4153518780', '4153518781'];
 const myqueue = kue.createQueue();
 
 jobs.forEach(element => {
@@ -69,4 +70,19 @@ job.on('progress', function(progress, data) {
 });
 
 job.save();
+});
+
+function sendNotification(phoneNumber, message, job, done) {
+  job.progress(0, 100);
+  if (blacklistedNumbers.includes(phoneNumber)) {
+    const errorMessage = `Phone number ${phoneNumber} is blacklisted`;
+    return done(new Error(errorMessage));
+  }
+  job.progress(50, 100);
+  console.log(`Sending notification to ${phoneNumber}, with message: ${message}`);
+  done();
+}
+myqueue.process('push_notification_code_2', 2, function(job, done) {
+  const { phoneNumber, message } = job.data;
+  sendNotification(phoneNumber, message, job, done);
 });
