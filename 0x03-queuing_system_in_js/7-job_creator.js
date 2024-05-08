@@ -50,7 +50,7 @@ const jobs = [
 const myqueue = kue.createQueue();
 
 jobs.forEach(element => {
-  myqueue.create('push_notification_code_2', element)
+  const job = myqueue.create('push_notification_code_2', element)
 
   job.on('enqueue', function() {
     console.log(`Notification job created: ${job.id}`);
